@@ -10,10 +10,10 @@
 - [x] **FOUND-01**: User can configure OpenNMS connection via a JSON file with URL and basic auth credentials (`username` + `password`)
 - [x] **FOUND-02**: User can configure OpenNMS connection via a JSON file with URL and API token (`token`); auth type is auto-detected from config keys
 - [x] **FOUND-03**: Config file path is provided via `OPENNMS_CONFIG` env var or positional CLI argument
-- [ ] **FOUND-04**: Server starts and connects to Claude CLI via stdio transport
+- [x] **FOUND-04**: Server starts and connects to Claude CLI via stdio transport
 - [x] **FOUND-05**: User receives a clear error message when the config file is missing, malformed, or has invalid fields
-- [ ] **FOUND-06**: User receives a clear error message when OpenNMS is unreachable (network error)
-- [ ] **FOUND-07**: User receives a clear error message when credentials are invalid (401/403)
+- [x] **FOUND-06**: User receives a clear error message when OpenNMS is unreachable (network error)
+- [x] **FOUND-07**: User receives a clear error message when credentials are invalid (401/403)
 - [x] **FOUND-08**: Optional `insecure: true` config field disables TLS certificate verification for self-signed certs
 
 ### Alarms
@@ -95,10 +95,10 @@ Which phases cover which requirements. Updated during roadmap creation.
 | FOUND-01 | Phase 1 | Complete |
 | FOUND-02 | Phase 1 | Complete |
 | FOUND-03 | Phase 1 | Complete |
-| FOUND-04 | Phase 1 | Pending |
+| FOUND-04 | Phase 1 | Complete |
 | FOUND-05 | Phase 1 | Complete |
-| FOUND-06 | Phase 1 | Pending |
-| FOUND-07 | Phase 1 | Pending |
+| FOUND-06 | Phase 1 | Complete |
+| FOUND-07 | Phase 1 | Complete |
 | FOUND-08 | Phase 1 | Complete |
 | ALARM-01 | Phase 2 | Pending |
 | ALARM-02 | Phase 2 | Pending |
