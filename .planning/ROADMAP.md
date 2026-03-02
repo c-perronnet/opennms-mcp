@@ -12,7 +12,7 @@ Five phases, foundation-first. Phase 1 builds the infrastructure every other pha
 
 Decimal phases appear between their surrounding integers in numeric order.
 
-- [ ] **Phase 1: Foundation** - Config loading, HTTP client, and stdout-safe MCP scaffold connected to Claude CLI
+- [x] **Phase 1: Foundation** - Config loading, HTTP client, and stdout-safe MCP scaffold connected to Claude CLI
 - [ ] **Phase 2: Alarms** - Full alarm read/write tool suite with FIQL filtering over OpenNMS REST v1/v2
 - [ ] **Phase 3: Nodes** - Node discovery, interface listing, outage retrieval, and rescan over REST v1
 - [ ] **Phase 4: Events, Assets, and Categories** - Event send/list, asset GET-merge-PUT, category assignment on nodes
@@ -34,7 +34,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 
 Plans:
 - [x] 01-01-PLAN.md — Project init: package.json, tsconfig.json, src/config.ts with Zod validation
-- [ ] 01-02-PLAN.md — HTTP client + MCP server entry point: src/client.ts, src/index.ts (gap closure)
+- [x] 01-02-PLAN.md — HTTP client + MCP server entry point: src/client.ts, src/index.ts (gap closure)
 
 ### Phase 2: Alarms
 **Goal**: Claude can read, filter, and act on alarms (acknowledge, unacknowledge, clear, escalate) via natural language
@@ -87,7 +87,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Foundation | 1/2 | In progress | - |
+| 1. Foundation | 2/2 | Complete   | 2026-03-02 |
 | 2. Alarms | 0/? | Not started | - |
 | 3. Nodes | 0/? | Not started | - |
 | 4. Events, Assets, Categories | 0/? | Not started | - |
