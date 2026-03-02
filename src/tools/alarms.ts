@@ -66,6 +66,26 @@ function formatAlarmDetail(alarm: AlarmDTO): string {
   return lines.join("\n");
 }
 
+// Helper: send a form-encoded PUT to the v1 alarms endpoint.
+// Using URLSearchParams as the body causes axios to automatically set
+// Content-Type: application/x-www-form-urlencoded, overriding the instance-level
+// Content-Type: application/json. This is required because the v1 Java endpoint
+// is annotated @Consumes(APPLICATION_FORM_URLENCODED) and returns HTTP 415 for JSON.
+// The v1 PUT returns HTTP 204 No Content on success — do NOT read resp.data.
+async function putAlarmAction(
+  client: ApiClient,
+  alarmId: number,
+  action: "ack" | "unack" | "clear" | "escalate"
+): Promise<void> {
+  const body = new URLSearchParams();
+  if (action === "ack") body.set("ack", "true");
+  else if (action === "unack") body.set("ack", "false");
+  else if (action === "clear") body.set("clear", "true");
+  else if (action === "escalate") body.set("escalate", "true");
+  await client.v1.put(`/alarms/${alarmId}`, body);
+  // 204 No Content — no response body to parse
+}
+
 export function registerAlarmTools(
   server: McpServer,
   client: ApiClient,
@@ -136,6 +156,58 @@ export function registerAlarmTools(
       } catch (err) {
         return {
           content: [{ type: "text", text: buildErrorMessage(err, `alarm ${id}`) }],
+          isError: true,
+        };
+      }
+    }
+  );
+
+  // ALARM-03: Acknowledge an alarm — most common operation, dedicated tool
+  server.tool(
+    "acknowledge_alarm",
+    "Acknowledge an OpenNMS alarm by ID. The alarm will be marked as acknowledged.",
+    {
+      id: z.number().int().positive().describe("The numeric ID of the alarm to acknowledge."),
+    },
+    async ({ id }) => {
+      try {
+        await putAlarmAction(client, id, "ack");
+        return {
+          content: [{ type: "text", text: `Alarm ${id} acknowledged.` }],
+        };
+      } catch (err) {
+        return {
+          content: [{ type: "text", text: buildErrorMessage(err, `acknowledge alarm ${id}`) }],
+          isError: true,
+        };
+      }
+    }
+  );
+
+  // ALARM-04, ALARM-05, ALARM-06: Unacknowledge, clear, or escalate an alarm
+  server.tool(
+    "modify_alarm",
+    "Modify an OpenNMS alarm by ID. Actions: 'unacknowledge' removes the acknowledgement, 'clear' resolves the alarm, 'escalate' raises its severity by one level.",
+    {
+      id: z.number().int().positive().describe("The numeric ID of the alarm to modify."),
+      action: z.enum(["unacknowledge", "clear", "escalate"]).describe(
+        "Action to perform: 'unacknowledge' removes ack, 'clear' resolves the alarm, 'escalate' raises severity."
+      ),
+    },
+    async ({ id, action }) => {
+      try {
+        const apiAction = action === "unacknowledge" ? "unack" : action as "clear" | "escalate";
+        await putAlarmAction(client, id, apiAction);
+        const actionLabel =
+          action === "unacknowledge" ? "unacknowledged" :
+          action === "clear" ? "cleared" :
+          "escalated";
+        return {
+          content: [{ type: "text", text: `Alarm ${id} ${actionLabel}.` }],
+        };
+      } catch (err) {
+        return {
+          content: [{ type: "text", text: buildErrorMessage(err, `${action} alarm ${id}`) }],
           isError: true,
         };
       }
