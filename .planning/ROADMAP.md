@@ -92,7 +92,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Foundation | 2/2 | Complete   | 2026-03-02 |
-| 2. Alarms | 0/2 | Not started | - |
+| 2. Alarms | 1/2 | In Progress|  |
 | 3. Nodes | 0/? | Not started | - |
 | 4. Events, Assets, Categories | 0/? | Not started | - |
 | 5. Collection Config | 0/? | Not started | - |

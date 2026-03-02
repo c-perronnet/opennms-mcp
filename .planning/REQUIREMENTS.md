@@ -18,14 +18,14 @@
 
 ### Alarms
 
-- [ ] **ALARM-01**: User can list alarms, optionally filtered by FIQL expression (e.g. severity, node label, UEI)
-- [ ] **ALARM-02**: User can get a specific alarm by ID
+- [x] **ALARM-01**: User can list alarms, optionally filtered by FIQL expression (e.g. severity, node label, UEI)
+- [x] **ALARM-02**: User can get a specific alarm by ID
 - [ ] **ALARM-03**: User can acknowledge an alarm by ID
 - [ ] **ALARM-04**: User can unacknowledge an alarm by ID
 - [ ] **ALARM-05**: User can clear an alarm by ID
 - [ ] **ALARM-06**: User can escalate an alarm by ID
-- [ ] **ALARM-07**: Alarm list results include: ID, severity, node label, description, time, ack status
-- [ ] **ALARM-08**: User can control result limit (default 25) when listing alarms
+- [x] **ALARM-07**: Alarm list results include: ID, severity, node label, description, time, ack status
+- [x] **ALARM-08**: User can control result limit (default 25) when listing alarms
 
 ### Events
 
@@ -100,14 +100,14 @@ Which phases cover which requirements. Updated during roadmap creation.
 | FOUND-06 | Phase 1 | Complete |
 | FOUND-07 | Phase 1 | Complete |
 | FOUND-08 | Phase 1 | Complete |
-| ALARM-01 | Phase 2 | Pending |
-| ALARM-02 | Phase 2 | Pending |
+| ALARM-01 | Phase 2 | Complete |
+| ALARM-02 | Phase 2 | Complete |
 | ALARM-03 | Phase 2 | Pending |
 | ALARM-04 | Phase 2 | Pending |
 | ALARM-05 | Phase 2 | Pending |
 | ALARM-06 | Phase 2 | Pending |
-| ALARM-07 | Phase 2 | Pending |
-| ALARM-08 | Phase 2 | Pending |
+| ALARM-07 | Phase 2 | Complete |
+| ALARM-08 | Phase 2 | Complete |
 | EVENT-01 | Phase 4 | Pending |
 | EVENT-02 | Phase 4 | Pending |
 | EVENT-03 | Phase 4 | Pending |
