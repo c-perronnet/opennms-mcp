@@ -3,12 +3,12 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: unknown
-last_updated: "2026-03-02T22:02:00Z"
+last_updated: "2026-03-02T22:05:06Z"
 progress:
   total_phases: 5
   completed_phases: 1
-  total_plans: 3
-  completed_plans: 3
+  total_plans: 4
+  completed_plans: 4
 ---
 
 # Project State
@@ -23,25 +23,25 @@ See: .planning/PROJECT.md (updated 2026-03-02)
 ## Current Position
 
 Phase: 2 of 5 (Alarms)
-Plan: 1 of N in current phase
+Plan: 2 of N in current phase
 Status: In progress
-Last activity: 2026-03-02 — Plan 01 complete (list_alarms and get_alarm MCP tools)
+Last activity: 2026-03-02 — Plan 02 complete (acknowledge_alarm, modify_alarm mutation tools)
 
-Progress: [███░░░░░░░] 15%
+Progress: [████░░░░░░] 20%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 3
-- Average duration: 2.3 min
-- Total execution time: 0.12 hours
+- Total plans completed: 4
+- Average duration: 2 min
+- Total execution time: 0.13 hours
 
 **By Phase:**
 
 | Phase | Plans | Total | Avg/Plan |
 |-------|-------|-------|----------|
 | 1 - Foundation | 2 | 5 min | 2.5 min |
-| 2 - Alarms | 1 | 2 min | 2 min |
+| 2 - Alarms | 2 | 3 min | 1.5 min |
 
 **Recent Trend:**
 - Last 5 plans: 2.3 min
@@ -69,6 +69,9 @@ Recent decisions affecting current work:
 - [02-01]: axios params object used for FIQL _s param — no manual encodeURIComponent to avoid double-encoding
 - [02-01]: 204 status guard before accessing alarm array — v2 API returns HTTP 204 on empty results
 - [02-01]: _config prefix on unused parameter for consistent registerXxxTools(server, client, config) signature
+- [02-02]: URLSearchParams used as PUT body — axios auto-detects and sets Content-Type: application/x-www-form-urlencoded, preventing HTTP 415 from v1 Java endpoint
+- [02-02]: HTTP 204 No Content treated as success on PUT mutations — no resp.data access after write operations
+- [02-02]: acknowledge_alarm is a dedicated tool (not part of modify_alarm) — most common triage operation, dedicated name clearer for Claude
 
 ### Pending Todos
 
@@ -82,5 +85,5 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-03-02
-Stopped at: Completed 02-01-PLAN.md — list_alarms and get_alarm tools in src/tools/alarms.ts, wired into src/index.ts
+Stopped at: Completed 02-02-PLAN.md — acknowledge_alarm and modify_alarm mutation tools added to src/tools/alarms.ts
 Resume file: None
