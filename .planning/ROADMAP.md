@@ -30,7 +30,11 @@ Decimal phases appear between their surrounding integers in numeric order.
   3. Claude CLI receives a clear error when OpenNMS is unreachable (network timeout or DNS failure)
   4. Claude CLI receives a clear error when credentials are wrong (401/403 response)
   5. The server accepts both basic auth (username/password) and token auth configs without extra configuration
-**Plans**: TBD
+**Plans**: 2 plans
+
+Plans:
+- [x] 01-01-PLAN.md — Project init: package.json, tsconfig.json, src/config.ts with Zod validation
+- [ ] 01-02-PLAN.md — HTTP client + MCP server entry point: src/client.ts, src/index.ts (gap closure)
 
 ### Phase 2: Alarms
 **Goal**: Claude can read, filter, and act on alarms (acknowledge, unacknowledge, clear, escalate) via natural language
@@ -83,7 +87,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Foundation | 1/? | In progress | - |
+| 1. Foundation | 1/2 | In progress | - |
 | 2. Alarms | 0/? | Not started | - |
 | 3. Nodes | 0/? | Not started | - |
 | 4. Events, Assets, Categories | 0/? | Not started | - |
