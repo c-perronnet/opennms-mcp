@@ -45,7 +45,11 @@ Plans:
   2. Claude can get a single alarm by ID and see full details
   3. Claude can acknowledge, unacknowledge, clear, and escalate an alarm by ID and receive confirmation
   4. Claude can control how many alarms are returned (default 25, user-overridable)
-**Plans**: TBD
+**Plans**: 2 plans
+
+Plans:
+- [ ] 02-01-PLAN.md — Read tools: src/tools/alarms.ts (list_alarms, get_alarm, AlarmDTO types, formatters) + wire into src/index.ts
+- [ ] 02-02-PLAN.md — Mutation tools: acknowledge_alarm + modify_alarm (unack/clear/escalate) added to src/tools/alarms.ts
 
 ### Phase 3: Nodes
 **Goal**: Claude can discover and inspect nodes — interfaces, outages, and rescan — to support any node-centric workflow
@@ -88,7 +92,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Foundation | 2/2 | Complete   | 2026-03-02 |
-| 2. Alarms | 0/? | Not started | - |
+| 2. Alarms | 0/2 | Not started | - |
 | 3. Nodes | 0/? | Not started | - |
 | 4. Events, Assets, Categories | 0/? | Not started | - |
 | 5. Collection Config | 0/? | Not started | - |
