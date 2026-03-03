@@ -76,7 +76,11 @@ Plans:
   3. Claude can read the full asset record for a node and update one or more fields without clearing others
   4. Claude can list all categories in OpenNMS and see which categories a node belongs to
   5. Claude can assign and remove a category on a node by category name
-**Plans**: TBD
+**Plans**: 2 plans
+
+Plans:
+- [ ] 04-01-PLAN.md — Events and assets: src/tools/events.ts (list_events, get_event, send_event, get_node_asset_record, update_node_asset_record) + wire into src/index.ts
+- [ ] 04-02-PLAN.md — Categories: src/tools/categories.ts (list_categories, get_node_categories, add_category_to_node, remove_category_from_node) + wire into src/index.ts
 
 ### Phase 5: Collection Config
 **Goal**: Claude can inspect monitored services on a node interface and enable or disable collection per service
@@ -98,5 +102,5 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5
 | 1. Foundation | 2/2 | Complete   | 2026-03-02 |
 | 2. Alarms | 2/2 | Complete   | 2026-03-02 |
 | 3. Nodes | 2/2 | Complete   | 2026-03-03 |
-| 4. Events, Assets, Categories | 0/? | Not started | - |
+| 4. Events, Assets, Categories | 0/2 | Planned | - |
 | 5. Collection Config | 0/? | Not started | - |
