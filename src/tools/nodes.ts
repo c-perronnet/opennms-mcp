@@ -53,6 +53,20 @@ interface SnmpInterfaceDTO {
   poll?: boolean;
 }
 
+// OutageDTO derived from OnmsOutage.java transient computed fields and UI types/index.ts
+// Source: OnmsOutageCollection.java @JsonProperty("outage") — array key is "outage" (singular)
+interface OutageDTO {
+  id?: number;
+  nodeId?: number;
+  nodeLabel?: string;
+  ipAddress?: string;
+  ifLostService?: number;     // epoch ms — when service went down
+  ifRegainedService?: number; // epoch ms — null/undefined if outage still active
+  locationName?: string;
+  foreignSource?: string;
+  foreignId?: string;
+}
+
 // Format a node as a one-entry summary block (used in list_nodes)
 function formatNodeSummary(node: NodeDTO): string {
   const fs = node.foreignSource && node.foreignId
@@ -114,6 +128,25 @@ function formatSnmpInterface(iface: SnmpInterfaceDTO): string {
     iface.physAddr ? `MAC: ${iface.physAddr}` : null,
   ].filter(Boolean);
   return parts.join("  ");
+}
+
+// Format a single outage — null ifRegainedService means still active
+function formatOutage(outage: OutageDTO): string {
+  const lost = outage.ifLostService
+    ? new Date(outage.ifLostService).toISOString()
+    : "unknown";
+  const regained = outage.ifRegainedService
+    ? new Date(outage.ifRegainedService).toISOString()
+    : "Active (not yet regained)";
+  const parts = [
+    outage.id != null ? `Outage ID: ${outage.id}` : null,
+    `Node: ${outage.nodeLabel ?? outage.nodeId ?? "unknown"}`,
+    `IP: ${outage.ipAddress ?? "unknown"}`,
+    `Lost: ${lost}`,
+    `Regained: ${regained}`,
+    outage.locationName ? `Location: ${outage.locationName}` : null,
+  ].filter(Boolean);
+  return parts.join("  |  ");
 }
 
 export function registerNodeTools(
@@ -232,6 +265,49 @@ export function registerNodeTools(
         return { content: [{ type: "text", text: [header, "", ...lines].join("\n") }] };
       } catch (err) {
         return { content: [{ type: "text", text: buildErrorMessage(err, `SNMP interfaces for node ${id}`) }], isError: true };
+      }
+    }
+  );
+
+  // NODE-05: List outages for a node
+  // IMPORTANT: Uses v1 API — the only endpoint for per-node outages. Accepts numeric ID only.
+  // If user provides foreignSource:foreignId, we resolve the numeric ID via v2 get_node first.
+  server.tool(
+    "get_node_outages",
+    "List outages for an OpenNMS node. Accepts numeric node ID (e.g. '42') or 'foreignSource:foreignId' format (e.g. 'MySource:server-001') — the server resolves foreignSource:foreignId to a numeric ID automatically. Returns each outage with IP address, time lost, and time regained (or 'Active' if still down).",
+    {
+      id: z.string().describe(
+        "Node identifier: numeric ID (e.g. '42') or foreignSource:foreignId format (e.g. 'MySource:server-001')."
+      ),
+    },
+    async ({ id }) => {
+      try {
+        // The v1 outages endpoint only accepts numeric node IDs (int parameter).
+        // If id is not purely numeric, resolve it to a numeric ID via the v2 node endpoint.
+        let numericId: string = id;
+        if (!/^\d+$/.test(id)) {
+          // foreignSource:foreignId — resolve via v2 (NodeDao.get() handles both formats)
+          const nodeResp = await client.v2.get(`/nodes/${id}`);
+          const node = nodeResp.data as NodeDTO;
+          // node.id is a string due to @XmlID serialization — use as-is for the v1 path
+          numericId = node.id;
+        }
+
+        // GET /opennms/rest/outages/forNode/{numericId} — v1 REST, numeric only
+        const resp = await client.v1.get(`/outages/forNode/${numericId}`);
+
+        // Array key is "outage" (singular) — per @JsonProperty("outage") in OnmsOutageCollection.java
+        if (!resp.data?.outage?.length) {
+          return { content: [{ type: "text", text: `No outages found for node ${id}.` }] };
+        }
+
+        const outages = resp.data.outage as OutageDTO[];
+        const activeCount = outages.filter((o) => o.ifRegainedService == null).length;
+        const lines = outages.map(formatOutage);
+        const header = `Outages for node ${id}: ${outages.length} total, ${activeCount} active`;
+        return { content: [{ type: "text", text: [header, "", ...lines].join("\n") }] };
+      } catch (err) {
+        return { content: [{ type: "text", text: buildErrorMessage(err, `outages for node ${id}`) }], isError: true };
       }
     }
   );
