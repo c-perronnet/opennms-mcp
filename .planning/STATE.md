@@ -3,12 +3,12 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: unknown
-last_updated: "2026-03-03T12:18:52.510Z"
+last_updated: "2026-03-03T12:56:34.681Z"
 progress:
-  total_phases: 4
-  completed_phases: 4
-  total_plans: 8
-  completed_plans: 8
+  total_phases: 5
+  completed_phases: 5
+  total_plans: 9
+  completed_plans: 9
 ---
 
 # Project State
@@ -18,16 +18,16 @@ progress:
 See: .planning/PROJECT.md (updated 2026-03-02)
 
 **Core value:** Claude can read, triage, and act on OpenNMS data without the user needing to know REST API syntax
-**Current focus:** Phase 4 - Events, Assets, Categories (complete)
+**Current focus:** Phase 5 - Collection Config (complete)
 
 ## Current Position
 
-Phase: 4 of 5 (Events, Assets, Categories)
-Plan: 2 of 2 in current phase (phase complete)
-Status: In progress
-Last activity: 2026-03-03 — Plan 02 complete (list_categories, get_node_categories, add_category_to_node, remove_category_from_node — all 4 category tools done; Phase 4 complete)
+Phase: 5 of 5 (Collection Config)
+Plan: 1 of 1 in current phase (phase complete)
+Status: Complete
+Last activity: 2026-03-03 — Plan 01 complete (list_node_services, enable_service_collection, disable_service_collection — all 3 collection tools done; Phase 5 complete; v1 toolset complete)
 
-Progress: [████████████████░░░░] 80%
+Progress: [████████████████████] 100%
 
 ## Performance Metrics
 
@@ -44,6 +44,7 @@ Progress: [████████████████░░░░] 80%
 | 2 - Alarms | 2 | 3 min | 1.5 min |
 | 3 - Nodes | 2 | 4 min | 2 min |
 | 4 - Events/Assets/Categories | 2 | 5 min | 2.5 min |
+| 5 - Collection Config | 1 | 2 min | 2 min |
 
 **Recent Trend:**
 - Last 5 plans: 2.2 min
@@ -88,6 +89,8 @@ Recent decisions affecting current work:
 - [04-02]: POST not PUT for add_category_to_node — @POST @Path in NodeRestService.java assigns node membership; PUT updates category entity fields silently
 - [04-02]: encodeURIComponent(categoryName) required in path — prevents 404 for category names with spaces or special characters
 - [04-02]: category list key 'category' (singular) — @JsonProperty('category') in OnmsCategoryCollection.java; same pattern as alarm/event/node arrays
+- [Phase 05-01]: URLSearchParams body for PUT to prevent HTTP 415 from v1 FORM_URLENCODED endpoint
+- [Phase 05-01]: resp.data?.service (singular) for list response matching @JsonProperty in OnmsMonitoredServiceList.java
 
 ### Pending Todos
 
@@ -101,5 +104,5 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-03-03
-Stopped at: Completed 04-02-PLAN.md — list_categories, get_node_categories, add_category_to_node, remove_category_from_node added; Phase 4 complete (20 tools total)
+Stopped at: Completed 05-01-PLAN.md — list_node_services, enable_service_collection, disable_service_collection added; Phase 5 complete; v1 MCP toolset complete (23 tools total)
 Resume file: None

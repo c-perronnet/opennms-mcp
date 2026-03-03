@@ -56,9 +56,9 @@
 
 ### Collection Config
 
-- [ ] **COLL-01**: User can list the monitored services on a node's IP interface
-- [ ] **COLL-02**: User can enable collection on a node's IP interface service
-- [ ] **COLL-03**: User can disable collection on a node's IP interface service
+- [x] **COLL-01**: User can list the monitored services on a node's IP interface
+- [x] **COLL-02**: User can enable collection on a node's IP interface service
+- [x] **COLL-03**: User can disable collection on a node's IP interface service
 
 ## v2 Requirements
 
@@ -123,9 +123,9 @@ Which phases cover which requirements. Updated during roadmap creation.
 | CAT-02 | Phase 4 | Complete |
 | CAT-03 | Phase 4 | Complete |
 | CAT-04 | Phase 4 | Complete |
-| COLL-01 | Phase 5 | Pending |
-| COLL-02 | Phase 5 | Pending |
-| COLL-03 | Phase 5 | Pending |
+| COLL-01 | Phase 5 | Complete |
+| COLL-02 | Phase 5 | Complete |
+| COLL-03 | Phase 5 | Complete |
 
 **Coverage:**
 - v1 requirements: 35 total
