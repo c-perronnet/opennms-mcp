@@ -90,7 +90,10 @@ Plans:
   1. Claude can list the monitored services on a specific node IP interface
   2. Claude can enable collection on a service and receive confirmation that it is active
   3. Claude can disable collection on a service and receive confirmation that it is inactive
-**Plans**: TBD
+**Plans**: 1 plan
+
+Plans:
+- [ ] 05-01-PLAN.md — Collection config tools: list_node_services, enable_service_collection, disable_service_collection + wire into src/index.ts
 
 ## Progress
 
@@ -103,4 +106,4 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5
 | 2. Alarms | 2/2 | Complete   | 2026-03-02 |
 | 3. Nodes | 2/2 | Complete   | 2026-03-03 |
 | 4. Events, Assets, Categories | 2/2 | Complete   | 2026-03-03 |
-| 5. Collection Config | 0/? | Not started | - |
+| 5. Collection Config | 0/1 | Not started | - |
