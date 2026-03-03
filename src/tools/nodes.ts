@@ -312,4 +312,32 @@ export function registerNodeTools(
     }
   );
 
+  // NODE-06: Trigger a rescan of a node
+  // Uses v2 PUT (NOT v1) — the rescan endpoint exists only on v2: /api/v2/nodes/{nodeCriteria}/rescan
+  // Accepts numeric ID or foreignSource:foreignId (NodeDao.get() handles both on v2).
+  // @Consumes(APPLICATION_FORM_URLENCODED) requires URLSearchParams body — can be empty.
+  // Returns HTTP 200 OK with empty body — do NOT access resp.data.
+  server.tool(
+    "rescan_node",
+    "Trigger a rescan (capability discovery) for an OpenNMS node. Accepts numeric node ID (e.g. '42') or 'foreignSource:foreignId' format (e.g. 'MySource:server-001'). The rescan fires a forceRescan event and OpenNMS will re-detect the node's services and interfaces.",
+    {
+      id: z.string().describe(
+        "Node identifier: numeric ID (e.g. '42') or foreignSource:foreignId format (e.g. 'MySource:server-001')."
+      ),
+    },
+    async ({ id }) => {
+      try {
+        // PUT /api/v2/nodes/{id}/rescan — v2 endpoint, not v1
+        // new URLSearchParams() satisfies @Consumes(APPLICATION_FORM_URLENCODED) with empty body.
+        // axios detects URLSearchParams and sets Content-Type: application/x-www-form-urlencoded automatically.
+        const body = new URLSearchParams();
+        await client.v2.put(`/nodes/${id}/rescan`, body);
+        // Returns HTTP 200 OK with empty body — do not access resp.data (would be empty string or undefined).
+        return { content: [{ type: "text", text: `Rescan triggered for node ${id}. OpenNMS will re-detect services and interfaces shortly.` }] };
+      } catch (err) {
+        return { content: [{ type: "text", text: buildErrorMessage(err, `rescan node ${id}`) }], isError: true };
+      }
+    }
+  );
+
 }
