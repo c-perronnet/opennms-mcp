@@ -60,7 +60,11 @@ Plans:
   2. Claude can get a specific node by numeric ID or by foreignSource:foreignId format
   3. Claude can list IP interfaces and SNMP interfaces for a node
   4. Claude can list active outages for a node and trigger a rescan
-**Plans**: TBD
+**Plans**: 2 plans
+
+Plans:
+- [ ] 03-01-PLAN.md — Read tools: src/tools/nodes.ts (NodeDTO, IpInterfaceDTO, SnmpInterfaceDTO types, formatters, list_nodes, get_node, get_node_ip_interfaces, get_node_snmp_interfaces) + wire into src/index.ts
+- [ ] 03-02-PLAN.md — Outages and rescan: get_node_outages (v1, numeric-ID with foreignSource:foreignId resolution) + rescan_node (v2 PUT) added to src/tools/nodes.ts
 
 ### Phase 4: Events, Assets, and Categories
 **Goal**: Claude can send and inspect events, read and update node asset records, and manage node category membership
@@ -93,6 +97,6 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5
 |-------|----------------|--------|-----------|
 | 1. Foundation | 2/2 | Complete   | 2026-03-02 |
 | 2. Alarms | 2/2 | Complete   | 2026-03-02 |
-| 3. Nodes | 0/? | Not started | - |
+| 3. Nodes | 0/2 | Not started | - |
 | 4. Events, Assets, Categories | 0/? | Not started | - |
 | 5. Collection Config | 0/? | Not started | - |
