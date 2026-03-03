@@ -37,9 +37,10 @@ export function createApiClient(config: OpenNMSConfig) {
   });
 
   // v1 API: mutations, categories, assets, collection, events POST
+  // Note: config.url already includes the /opennms context path (e.g. http://host:8980/opennms)
   const v1: AxiosInstance = axios.create({
     ...instanceConfig,
-    baseURL: `${config.url}/opennms/rest`,
+    baseURL: `${config.url}/rest`,
   });
 
   return { v2, v1 };
