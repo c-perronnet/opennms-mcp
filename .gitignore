@@ -1,3 +1,18 @@
-./opennms
-node_modules/
+# Build output
 dist/
+
+# Dependencies
+node_modules/
+
+# Local config files (may contain credentials)
+opennms/
+*.config.json
+!opennms.example.json
+
+# Environment files
+.env
+.env.*
+
+# Editor / OS
+.DS_Store
+*.swp
