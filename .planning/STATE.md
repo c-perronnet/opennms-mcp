@@ -2,13 +2,13 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-status: unknown
-last_updated: "2026-03-03T08:03:00.614Z"
+status: in_progress
+last_updated: "2026-03-03T12:13:36Z"
 progress:
-  total_phases: 3
+  total_phases: 5
   completed_phases: 3
-  total_plans: 6
-  completed_plans: 6
+  total_plans: 8
+  completed_plans: 8
 ---
 
 # Project State
@@ -18,23 +18,23 @@ progress:
 See: .planning/PROJECT.md (updated 2026-03-02)
 
 **Core value:** Claude can read, triage, and act on OpenNMS data without the user needing to know REST API syntax
-**Current focus:** Phase 3 - Nodes
+**Current focus:** Phase 4 - Events, Assets, Categories (complete)
 
 ## Current Position
 
-Phase: 3 of 5 (Nodes)
+Phase: 4 of 5 (Events, Assets, Categories)
 Plan: 2 of 2 in current phase (phase complete)
 Status: In progress
-Last activity: 2026-03-03 — Plan 02 complete (get_node_outages, rescan_node — all 6 node tools done)
+Last activity: 2026-03-03 — Plan 02 complete (list_categories, get_node_categories, add_category_to_node, remove_category_from_node — all 4 category tools done; Phase 4 complete)
 
-Progress: [██████████░░░░░░░░░░] 50%
+Progress: [████████████████░░░░] 80%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 6
+- Total plans completed: 8
 - Average duration: 2 min
-- Total execution time: 0.20 hours
+- Total execution time: 0.27 hours
 
 **By Phase:**
 
@@ -43,9 +43,10 @@ Progress: [██████████░░░░░░░░░░] 50%
 | 1 - Foundation | 2 | 5 min | 2.5 min |
 | 2 - Alarms | 2 | 3 min | 1.5 min |
 | 3 - Nodes | 2 | 4 min | 2 min |
+| 4 - Events/Assets/Categories | 2 | 5 min | 2.5 min |
 
 **Recent Trend:**
-- Last 5 plans: 2.3 min
+- Last 5 plans: 2.2 min
 - Trend: stable
 
 *Updated after each plan completion*
@@ -81,6 +82,12 @@ Recent decisions affecting current work:
 - [03-02]: Outage array key is "outage" (singular) — matches @JsonProperty("outage") in OnmsOutageCollection.java
 - [03-02]: rescan_node uses v2 PUT /api/v2/nodes/{nodeCriteria}/rescan — rescan endpoint does not exist on v1
 - [03-02]: URLSearchParams() used as rescan body to satisfy @Consumes(APPLICATION_FORM_URLENCODED); no resp.data access after PUT (empty body)
+- [04-01]: event and asset tools co-located in events.ts — single registerEventTools() export keeps wiring symmetrical with existing phases
+- [04-01]: send_event body uses JAXB field names: nodeid (lowercase), interface, descr — mismatched names would silently fail
+- [04-01]: FIQL property names for events differ from JSON response field names: eventUei not uei, node.id not nodeId
+- [04-02]: POST not PUT for add_category_to_node — @POST @Path in NodeRestService.java assigns node membership; PUT updates category entity fields silently
+- [04-02]: encodeURIComponent(categoryName) required in path — prevents 404 for category names with spaces or special characters
+- [04-02]: category list key 'category' (singular) — @JsonProperty('category') in OnmsCategoryCollection.java; same pattern as alarm/event/node arrays
 
 ### Pending Todos
 
@@ -94,5 +101,5 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-03-03
-Stopped at: Completed 03-02-PLAN.md — get_node_outages and rescan_node added; all 6 node tools registered in src/tools/nodes.ts
+Stopped at: Completed 04-02-PLAN.md — list_categories, get_node_categories, add_category_to_node, remove_category_from_node added; Phase 4 complete (20 tools total)
 Resume file: None

@@ -15,7 +15,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 - [x] **Phase 1: Foundation** - Config loading, HTTP client, and stdout-safe MCP scaffold connected to Claude CLI
 - [x] **Phase 2: Alarms** - Full alarm read/write tool suite with FIQL filtering over OpenNMS REST v1/v2 (completed 2026-03-02)
 - [x] **Phase 3: Nodes** - Node discovery, interface listing, outage retrieval, and rescan over REST v1 (completed 2026-03-03)
-- [ ] **Phase 4: Events, Assets, and Categories** - Event send/list, asset GET-merge-PUT, category assignment on nodes
+- [x] **Phase 4: Events, Assets, and Categories** - Event send/list, asset GET-merge-PUT, category assignment on nodes (completed 2026-03-03)
 - [ ] **Phase 5: Collection Config** - Enable/disable monitoring collection per service on a node interface
 
 ## Phase Details
@@ -102,5 +102,5 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5
 | 1. Foundation | 2/2 | Complete   | 2026-03-02 |
 | 2. Alarms | 2/2 | Complete   | 2026-03-02 |
 | 3. Nodes | 2/2 | Complete   | 2026-03-03 |
-| 4. Events, Assets, Categories | 0/2 | Planned | - |
+| 4. Events, Assets, Categories | 2/2 | Complete   | 2026-03-03 |
 | 5. Collection Config | 0/? | Not started | - |

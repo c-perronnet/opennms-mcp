@@ -49,10 +49,10 @@
 
 ### Categories
 
-- [ ] **CAT-01**: User can list all categories defined in OpenNMS
-- [ ] **CAT-02**: User can list the categories assigned to a specific node
-- [ ] **CAT-03**: User can assign a category to a node by category name
-- [ ] **CAT-04**: User can remove a category from a node by category name
+- [x] **CAT-01**: User can list all categories defined in OpenNMS
+- [x] **CAT-02**: User can list the categories assigned to a specific node
+- [x] **CAT-03**: User can assign a category to a node by category name
+- [x] **CAT-04**: User can remove a category from a node by category name
 
 ### Collection Config
 
@@ -119,10 +119,10 @@ Which phases cover which requirements. Updated during roadmap creation.
 | NODE-06 | Phase 3 | Complete |
 | ASSET-01 | Phase 4 | Pending |
 | ASSET-02 | Phase 4 | Pending |
-| CAT-01 | Phase 4 | Pending |
-| CAT-02 | Phase 4 | Pending |
-| CAT-03 | Phase 4 | Pending |
-| CAT-04 | Phase 4 | Pending |
+| CAT-01 | Phase 4 | Complete |
+| CAT-02 | Phase 4 | Complete |
+| CAT-03 | Phase 4 | Complete |
+| CAT-04 | Phase 4 | Complete |
 | COLL-01 | Phase 5 | Pending |
 | COLL-02 | Phase 5 | Pending |
 | COLL-03 | Phase 5 | Pending |
