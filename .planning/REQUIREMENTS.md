@@ -39,8 +39,8 @@
 - [x] **NODE-02**: User can get a specific node by numeric ID or by `foreignSource:foreignId` format
 - [x] **NODE-03**: User can list IP interfaces for a node
 - [x] **NODE-04**: User can list SNMP interfaces for a node
-- [ ] **NODE-05**: User can list outages for a node
-- [ ] **NODE-06**: User can trigger a rescan of a node
+- [x] **NODE-05**: User can list outages for a node
+- [x] **NODE-06**: User can trigger a rescan of a node
 
 ### Assets
 
@@ -115,8 +115,8 @@ Which phases cover which requirements. Updated during roadmap creation.
 | NODE-02 | Phase 3 | Complete |
 | NODE-03 | Phase 3 | Complete |
 | NODE-04 | Phase 3 | Complete |
-| NODE-05 | Phase 3 | Pending |
-| NODE-06 | Phase 3 | Pending |
+| NODE-05 | Phase 3 | Complete |
+| NODE-06 | Phase 3 | Complete |
 | ASSET-01 | Phase 4 | Pending |
 | ASSET-02 | Phase 4 | Pending |
 | CAT-01 | Phase 4 | Pending |

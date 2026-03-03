@@ -3,12 +3,12 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: unknown
-last_updated: "2026-03-03T07:53:44Z"
+last_updated: "2026-03-03T07:58:30Z"
 progress:
   total_phases: 5
   completed_phases: 2
-  total_plans: 5
-  completed_plans: 5
+  total_plans: 6
+  completed_plans: 6
 ---
 
 # Project State
@@ -23,18 +23,18 @@ See: .planning/PROJECT.md (updated 2026-03-02)
 ## Current Position
 
 Phase: 3 of 5 (Nodes)
-Plan: 1 of 2 in current phase
+Plan: 2 of 2 in current phase (phase complete)
 Status: In progress
-Last activity: 2026-03-03 — Plan 01 complete (list_nodes, get_node, get_node_ip_interfaces, get_node_snmp_interfaces read tools)
+Last activity: 2026-03-03 — Plan 02 complete (get_node_outages, rescan_node — all 6 node tools done)
 
-Progress: [████████░░] 40%
+Progress: [██████████░░░░░░░░░░] 50%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 4
+- Total plans completed: 6
 - Average duration: 2 min
-- Total execution time: 0.13 hours
+- Total execution time: 0.20 hours
 
 **By Phase:**
 
@@ -42,7 +42,7 @@ Progress: [████████░░] 40%
 |-------|-------|-------|----------|
 | 1 - Foundation | 2 | 5 min | 2.5 min |
 | 2 - Alarms | 2 | 3 min | 1.5 min |
-| 3 - Nodes | 1 | 2 min | 2 min |
+| 3 - Nodes | 2 | 4 min | 2 min |
 
 **Recent Trend:**
 - Last 5 plans: 2.3 min
@@ -77,6 +77,10 @@ Recent decisions affecting current work:
 - [03-01]: Array key "node" (singular) not "nodes" — @JsonProperty("node") in OnmsNodeList.java; ipInterface and snmpInterface follow same convention
 - [03-01]: foreignSource:foreignId accepted in path segment directly — v2 API resolves both numeric and FSS:FID transparently
 - [03-01]: SnmpInterfaceDTO fields all optional — ifDescr/ifName lack @XmlAttribute in Java source, inferred from UI TypeScript types only
+- [03-02]: v1 /outages/forNode/{numericId} requires numeric int — foreignSource:foreignId must be resolved via v2 /nodes/{id} before calling v1
+- [03-02]: Outage array key is "outage" (singular) — matches @JsonProperty("outage") in OnmsOutageCollection.java
+- [03-02]: rescan_node uses v2 PUT /api/v2/nodes/{nodeCriteria}/rescan — rescan endpoint does not exist on v1
+- [03-02]: URLSearchParams() used as rescan body to satisfy @Consumes(APPLICATION_FORM_URLENCODED); no resp.data access after PUT (empty body)
 
 ### Pending Todos
 
@@ -90,5 +94,5 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-03-03
-Stopped at: Completed 03-01-PLAN.md — list_nodes, get_node, get_node_ip_interfaces, get_node_snmp_interfaces read tools added to src/tools/nodes.ts
+Stopped at: Completed 03-02-PLAN.md — get_node_outages and rescan_node added; all 6 node tools registered in src/tools/nodes.ts
 Resume file: None
