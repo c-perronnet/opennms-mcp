@@ -35,10 +35,10 @@
 
 ### Nodes
 
-- [ ] **NODE-01**: User can list nodes, optionally filtered by label or category
-- [ ] **NODE-02**: User can get a specific node by numeric ID or by `foreignSource:foreignId` format
-- [ ] **NODE-03**: User can list IP interfaces for a node
-- [ ] **NODE-04**: User can list SNMP interfaces for a node
+- [x] **NODE-01**: User can list nodes, optionally filtered by label or category
+- [x] **NODE-02**: User can get a specific node by numeric ID or by `foreignSource:foreignId` format
+- [x] **NODE-03**: User can list IP interfaces for a node
+- [x] **NODE-04**: User can list SNMP interfaces for a node
 - [ ] **NODE-05**: User can list outages for a node
 - [ ] **NODE-06**: User can trigger a rescan of a node
 
@@ -111,10 +111,10 @@ Which phases cover which requirements. Updated during roadmap creation.
 | EVENT-01 | Phase 4 | Pending |
 | EVENT-02 | Phase 4 | Pending |
 | EVENT-03 | Phase 4 | Pending |
-| NODE-01 | Phase 3 | Pending |
-| NODE-02 | Phase 3 | Pending |
-| NODE-03 | Phase 3 | Pending |
-| NODE-04 | Phase 3 | Pending |
+| NODE-01 | Phase 3 | Complete |
+| NODE-02 | Phase 3 | Complete |
+| NODE-03 | Phase 3 | Complete |
+| NODE-04 | Phase 3 | Complete |
 | NODE-05 | Phase 3 | Pending |
 | NODE-06 | Phase 3 | Pending |
 | ASSET-01 | Phase 4 | Pending |

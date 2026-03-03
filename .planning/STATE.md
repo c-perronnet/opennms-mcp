@@ -3,12 +3,12 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: unknown
-last_updated: "2026-03-02T22:09:08.499Z"
+last_updated: "2026-03-03T07:53:44Z"
 progress:
-  total_phases: 2
+  total_phases: 5
   completed_phases: 2
-  total_plans: 4
-  completed_plans: 4
+  total_plans: 5
+  completed_plans: 5
 ---
 
 # Project State
@@ -18,16 +18,16 @@ progress:
 See: .planning/PROJECT.md (updated 2026-03-02)
 
 **Core value:** Claude can read, triage, and act on OpenNMS data without the user needing to know REST API syntax
-**Current focus:** Phase 2 - Alarms
+**Current focus:** Phase 3 - Nodes
 
 ## Current Position
 
-Phase: 2 of 5 (Alarms)
-Plan: 2 of N in current phase
+Phase: 3 of 5 (Nodes)
+Plan: 1 of 2 in current phase
 Status: In progress
-Last activity: 2026-03-02 — Plan 02 complete (acknowledge_alarm, modify_alarm mutation tools)
+Last activity: 2026-03-03 — Plan 01 complete (list_nodes, get_node, get_node_ip_interfaces, get_node_snmp_interfaces read tools)
 
-Progress: [████░░░░░░] 20%
+Progress: [████████░░] 40%
 
 ## Performance Metrics
 
@@ -42,6 +42,7 @@ Progress: [████░░░░░░] 20%
 |-------|-------|-------|----------|
 | 1 - Foundation | 2 | 5 min | 2.5 min |
 | 2 - Alarms | 2 | 3 min | 1.5 min |
+| 3 - Nodes | 1 | 2 min | 2 min |
 
 **Recent Trend:**
 - Last 5 plans: 2.3 min
@@ -72,6 +73,10 @@ Recent decisions affecting current work:
 - [02-02]: URLSearchParams used as PUT body — axios auto-detects and sets Content-Type: application/x-www-form-urlencoded, preventing HTTP 415 from v1 Java endpoint
 - [02-02]: HTTP 204 No Content treated as success on PUT mutations — no resp.data access after write operations
 - [02-02]: acknowledge_alarm is a dedicated tool (not part of modify_alarm) — most common triage operation, dedicated name clearer for Claude
+- [03-01]: node.id typed as string (not number) — @XmlID annotation causes Java to serialize node ID as string in JSON responses
+- [03-01]: Array key "node" (singular) not "nodes" — @JsonProperty("node") in OnmsNodeList.java; ipInterface and snmpInterface follow same convention
+- [03-01]: foreignSource:foreignId accepted in path segment directly — v2 API resolves both numeric and FSS:FID transparently
+- [03-01]: SnmpInterfaceDTO fields all optional — ifDescr/ifName lack @XmlAttribute in Java source, inferred from UI TypeScript types only
 
 ### Pending Todos
 
@@ -84,6 +89,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-02
-Stopped at: Completed 02-02-PLAN.md — acknowledge_alarm and modify_alarm mutation tools added to src/tools/alarms.ts
+Last session: 2026-03-03
+Stopped at: Completed 03-01-PLAN.md — list_nodes, get_node, get_node_ip_interfaces, get_node_snmp_interfaces read tools added to src/tools/nodes.ts
 Resume file: None
