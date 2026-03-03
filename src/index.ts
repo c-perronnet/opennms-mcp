@@ -5,6 +5,7 @@ import { createApiClient, buildErrorMessage } from "./client.js";
 import { registerAlarmTools } from "./tools/alarms.js";
 import { registerNodeTools } from "./tools/nodes.js";
 import { registerEventTools } from "./tools/events.js";
+import { registerCategoryTools } from "./tools/categories.js";
 
 // Step 1: Resolve config path (FOUND-03)
 // Prefer OPENNMS_CONFIG env var; fall back to positional argument.
@@ -45,7 +46,10 @@ registerNodeTools(server, client, config);
 // Step 7: Register event and asset tools (Phase 4)
 registerEventTools(server, client, config);
 
-// Step 8: Register stub tool — server_info
+// Step 8: Register category tools (Phase 4)
+registerCategoryTools(server, client, config);
+
+// Step 9: Register stub tool — server_info
 // This tool verifies connectivity and auth by calling a lightweight v1 endpoint.
 // All Phase 2+ tools will follow this same pattern.
 server.tool(
@@ -82,7 +86,7 @@ server.tool(
   }
 );
 
-// Step 9: Connect transport (FOUND-04) — must come AFTER all registerTool calls
+// Step 10: Connect transport (FOUND-04) — must come AFTER all registerTool calls
 async function main() {
   const transport = new StdioServerTransport();
   await server.connect(transport);
