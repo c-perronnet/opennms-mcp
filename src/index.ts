@@ -3,6 +3,7 @@ import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js"
 import { OpenNMSConfig, loadConfig } from "./config.js";
 import { createApiClient, buildErrorMessage } from "./client.js";
 import { registerAlarmTools } from "./tools/alarms.js";
+import { registerNodeTools } from "./tools/nodes.js";
 
 // Step 1: Resolve config path (FOUND-03)
 // Prefer OPENNMS_CONFIG env var; fall back to positional argument.
@@ -37,7 +38,10 @@ const server = new McpServer({
 // Step 5: Register alarm tools (Phase 2)
 registerAlarmTools(server, client, config);
 
-// Step 6: Register stub tool — server_info
+// Step 6: Register node tools (Phase 3)
+registerNodeTools(server, client, config);
+
+// Step 7: Register stub tool — server_info
 // This tool verifies connectivity and auth by calling a lightweight v1 endpoint.
 // All Phase 2+ tools will follow this same pattern.
 server.tool(
@@ -74,7 +78,7 @@ server.tool(
   }
 );
 
-// Step 7: Connect transport (FOUND-04) — must come AFTER all registerTool calls
+// Step 8: Connect transport (FOUND-04) — must come AFTER all registerTool calls
 async function main() {
   const transport = new StdioServerTransport();
   await server.connect(transport);
