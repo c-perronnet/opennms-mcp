@@ -4,14 +4,14 @@ An [MCP (Model Context Protocol)](https://modelcontextprotocol.io/) server that 
 
 ## Prerequisites
 
-- Node.js 18+
+- Node.js 22+
 - An OpenNMS instance reachable over HTTP/HTTPS
 - A user account with API access (admin or a read/write role)
 
 ## Installation
 
 ```bash
-git clone https://github.com/yourorg/opennms-mcp.git
+git clone https://github.com/c-perronnet/opennms-mcp.git
 cd opennms-mcp
 npm install
 npm run build
