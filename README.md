@@ -76,6 +76,34 @@ Alternatively, pass the config path as a positional argument:
 }
 ```
 
+## Connecting to Claude Code
+
+Claude Code reads MCP server config from `~/.claude/claude_mcp_settings.json`. Add the server there:
+
+```json
+{
+  "mcpServers": {
+    "opennms": {
+      "command": "node",
+      "args": ["/absolute/path/to/opennms-mcp/dist/index.js"],
+      "env": {
+        "OPENNMS_CONFIG": "/absolute/path/to/opennms-mcp/opennms/myserver.json"
+      }
+    }
+  }
+}
+```
+
+Or configure it via the CLI:
+
+```bash
+claude mcp add opennms \
+  -e OPENNMS_CONFIG=/absolute/path/to/opennms-mcp/opennms/myserver.json \
+  -- node /absolute/path/to/opennms-mcp/dist/index.js
+```
+
+Verify the server is loaded with `/mcp` in the Claude Code prompt. The tools listed below will then be available in any conversation.
+
 ## Available tools
 
 ### Connectivity
