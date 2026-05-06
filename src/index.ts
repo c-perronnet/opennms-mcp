@@ -7,6 +7,7 @@ import { registerNodeTools } from "./tools/nodes.js";
 import { registerEventTools } from "./tools/events.js";
 import { registerCategoryTools } from "./tools/categories.js";
 import { registerCollectionTools } from "./tools/collection.js";
+import { registerDiscoveryTools } from "./tools/discovery.js";
 
 // Step 1: Resolve config path (FOUND-03)
 // Prefer OPENNMS_CONFIG env var; fall back to positional argument.
@@ -53,7 +54,10 @@ registerCategoryTools(server, client, config);
 // Step 9: Register collection config tools (Phase 5)
 registerCollectionTools(server, client, config);
 
-// Step 10: Register stub tool — server_info
+// Step 10: Register discovery tools (Phase 6)
+registerDiscoveryTools(server, client, config);
+
+// Step 11: Register stub tool — server_info
 // This tool verifies connectivity and auth by calling a lightweight v1 endpoint.
 // All Phase 2+ tools will follow this same pattern.
 server.tool(
