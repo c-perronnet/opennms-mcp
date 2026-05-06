@@ -16,3 +16,6 @@ opennms/
 # Editor / OS
 .DS_Store
 *.swp
+
+# Claude Code local config
+.claude/
