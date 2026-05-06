@@ -312,7 +312,44 @@ export function registerNodeTools(
     }
   );
 
-  // NODE-06: Trigger a rescan of a node
+  // NODE-06: Update a node's label
+  // Uses v1 PUT /rest/nodes/{id} with form-encoded body.
+  // Accepts numeric ID or foreignSource:foreignId — resolve to numeric for v1.
+  server.tool(
+    "update_node_label",
+    "Update the label of an OpenNMS node. Accepts numeric node ID (e.g. '42') or 'foreignSource:foreignId' format (e.g. 'MySource:server-001'). Sets the node's display label to the given value.",
+    {
+      id: z.string().describe(
+        "Node identifier: numeric ID (e.g. '42') or foreignSource:foreignId format (e.g. 'MySource:server-001')."
+      ),
+      label: z.string().min(1).describe(
+        "The new label for the node."
+      ),
+    },
+    async ({ id, label }) => {
+      try {
+        // v1 REST endpoint only accepts numeric node IDs.
+        let numericId: string = id;
+        if (!/^\d+$/.test(id)) {
+          const nodeResp = await client.v2.get(`/nodes/${id}`);
+          const node = nodeResp.data as NodeDTO;
+          numericId = node.id;
+        }
+
+        // PUT /rest/nodes/{id} with form-urlencoded body
+        const params = new URLSearchParams();
+        params.append("label", label);
+        await client.v1.put(`/nodes/${numericId}`, params, {
+          headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        });
+        return { content: [{ type: "text", text: `Node ${id} label updated to "${label}".` }] };
+      } catch (err) {
+        return { content: [{ type: "text", text: buildErrorMessage(err, `update label for node ${id}`) }], isError: true };
+      }
+    }
+  );
+
+  // NODE-07: Trigger a rescan of a node
   // Uses v2 PUT (NOT v1) — the rescan endpoint exists only on v2: /api/v2/nodes/{nodeCriteria}/rescan
   // Accepts numeric ID or foreignSource:foreignId (NodeDao.get() handles both on v2).
   // @Consumes(APPLICATION_FORM_URLENCODED) requires URLSearchParams body — can be empty.
